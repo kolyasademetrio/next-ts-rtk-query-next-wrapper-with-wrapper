@@ -4,3 +4,8 @@
   margin: 0;
   font-family: sans-serif;
 }
+
+button {
+  min-width: 200px;
+  padding: 10px 25px;
+}

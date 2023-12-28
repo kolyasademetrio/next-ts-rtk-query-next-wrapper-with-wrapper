@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import buildSlice from "./buildSlice";
 
 interface TestSchema {
    count: number;
@@ -8,7 +9,7 @@ const initialState: TestSchema = {
    count: 0,
 };
 
-const testSlice = createSlice({
+const testSlice = buildSlice({
    name: "test",
    initialState,
    reducers: {
@@ -33,3 +34,4 @@ export const testSelectors = {
 
 export const { actions: testActions } = testSlice;
 export const { reducer: testReducer } = testSlice;
+export const { useActions: useTestActions } = testSlice;

@@ -25,5 +25,11 @@ const testSlice = createSlice({
    extraReducers(builder) {},
 });
 
+const getTestCount = (state: any) => state.test.count;
+
+export const testSelectors = {
+   getTestCount,
+};
+
 export const { actions: testActions } = testSlice;
 export const { reducer: testReducer } = testSlice;

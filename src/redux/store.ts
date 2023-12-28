@@ -27,16 +27,11 @@ import { createReducerManager } from "./createReducerManager";
 // import { $api } from '@/shared/api/api';
 // import { rtkApi } from '@/shared/api/rtkApi';
 
-export const makeStore = (
-   initialState?: StoreSchema,
-   context?: Context,
-   asyncReducers?: ReducersMapObject<StoreSchema>
-) => {
+export const makeStore = (initialState?: StoreSchema, context?: Context) => {
    const rootReducer: ReducersMapObject<StoreSchema> = {
       test: testReducer,
 
       // [rtkApi.reducerPath]: rtkApi.reducer,
-      ...asyncReducers,
    };
 
    const reducerManager = createReducerManager(rootReducer);

@@ -24,14 +24,14 @@ import { Context, createWrapper } from "next-redux-wrapper";
 import { StoreSchema } from "./types/store";
 import { testReducer } from "./testSlice";
 import { createReducerManager } from "./createReducerManager";
+import { rtkApi } from "./rtkApi";
 // import { $api } from '@/shared/api/api';
-// import { rtkApi } from '@/shared/api/rtkApi';
 
 export const makeStore = (initialState?: StoreSchema, context?: Context) => {
    const rootReducer: ReducersMapObject<StoreSchema> = {
       test: testReducer,
 
-      // [rtkApi.reducerPath]: rtkApi.reducer,
+      [rtkApi.reducerPath]: rtkApi.reducer,
    };
 
    const reducerManager = createReducerManager(rootReducer);
@@ -40,7 +40,7 @@ export const makeStore = (initialState?: StoreSchema, context?: Context) => {
       reducer: reducerManager.reduce as Reducer<CombinedState<StoreSchema>>,
       devTools: process.env.NODE_ENV === "development",
       preloadedState: initialState,
-      middleware: getDefaultMiddleware => getDefaultMiddleware({}) /*.concat(rtkApi.middleware)*/,
+      middleware: getDefaultMiddleware => getDefaultMiddleware({}).concat(rtkApi.middleware),
    });
 
    // @ts-ignore

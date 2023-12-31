@@ -6,7 +6,7 @@ import { useGetTodoByIdQuery, useGetTodosQuery } from "../redux/testApi";
 
 const TestClient = () => {
    const { data, error, isError, isFetching, isLoading, isSuccess } = useGetTodosQuery();
-   const { data: dataById } = useGetTodoByIdQuery({ id: 1 });
+   const { data: dataById } = useGetTodoByIdQuery({ id: "1" });
 
    const { add, subtract, addNumber } = useTestActions();
 

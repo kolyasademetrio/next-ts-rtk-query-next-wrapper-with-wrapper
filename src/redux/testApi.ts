@@ -1,3 +1,4 @@
+import { TODOS } from "./mutationApi";
 import { rtkApi } from "./rtkApi";
 
 interface TestApiDTO {
@@ -15,6 +16,7 @@ export const testApi = rtkApi.injectEndpoints({
          transformResponse: (response: TestApiDTO[]) => {
             return { test: response };
          },
+         providesTags: [TODOS],
       }),
       getTodoById: build.query<{ titleUpdated: string }, { id: string }>({
          query: ({ id }) => `/todos/${id}`,
@@ -32,7 +34,10 @@ export const testApi = rtkApi.injectEndpoints({
 
 export const {
    endpoints: { getTodos, getTodoById, getPosts },
+   // get data and subscribe on data updates
    useGetTodosQuery,
+   // get trigger function to get data on some event
+   useLazyGetTodosQuery,
    useGetTodoByIdQuery,
    useGetPostsQuery,
 } = testApi;

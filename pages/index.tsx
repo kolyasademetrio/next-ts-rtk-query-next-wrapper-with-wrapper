@@ -36,7 +36,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async cont
 
    return {
       props: {
-         data,
+         //  data,
       },
    };
 });

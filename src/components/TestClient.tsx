@@ -2,7 +2,8 @@ import { useTestActions, testSelectors } from "../redux/testSlice";
 import { useSelector } from "react-redux";
 import { DynamicModuleLoader } from "./DynamicModuleLoader";
 import { dynamicReducer, dynamicSelectors } from "../redux/dynamicSlice";
-import { useGetTodoByIdQuery, useGetTodosQuery } from "../redux/testApi";
+import { useGetTodoByIdQuery, useGetTodosQuery, useLazyGetTodosQuery } from "../redux/testApi";
+import { usePostTodoMutation } from "../redux/mutationApi";
 
 const TestClient = () => {
    const { data, error, isError, isFetching, isLoading, isSuccess } = useGetTodosQuery();
@@ -15,6 +16,19 @@ const TestClient = () => {
 
    const count = useSelector(testSelectors.getTestCount);
    const dynamicCount = useSelector(dynamicSelectors.getDynamicCount);
+
+   const [postTodo, { isError: isError2, isLoading: isLoading2, isSuccess: isSuccess2 }] =
+      usePostTodoMutation();
+   const [getTodosTrigger, dataLazy] = useLazyGetTodosQuery();
+
+   const loadMoreHandler = () => {
+      getTodosTrigger();
+   };
+
+   const postTodoHandler = async (data: any) => {
+      await postTodo(data);
+      loadMoreHandler();
+   };
 
    const addHandler = () => {
       add();
@@ -36,6 +50,20 @@ const TestClient = () => {
             {dynamicCount}
             <DynamicModuleLoader reducers={{ dynamic: dynamicReducer }}>
                <button onClick={addNumberHandler}>add 5</button>
+               <button
+                  onClick={() =>
+                     postTodoHandler({
+                        completed: false,
+                        title: "test title",
+                        userId: "test_id_1",
+                     })
+                  }
+               >
+                  Post todo
+               </button>
+               {JSON.stringify(dataLazy.data)}
+               -------------------------------------
+               {JSON.stringify(data)}
             </DynamicModuleLoader>
             <div style={{ padding: 10 }}>
                {data?.test &&

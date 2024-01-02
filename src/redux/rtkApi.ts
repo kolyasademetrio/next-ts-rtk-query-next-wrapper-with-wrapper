@@ -4,7 +4,7 @@ import { HYDRATE } from "next-redux-wrapper";
 
 export const rtkApi = createApi({
    reducerPath: "api",
-   tagTypes: [],
+   tagTypes: ["TODOS"],
    baseQuery: fetchBaseQuery({ baseUrl: "https://jsonplaceholder.typicode.com" }),
    // it is for next-redux-wrapper settings
    extractRehydrationInfo(action, { reducerPath }) {
